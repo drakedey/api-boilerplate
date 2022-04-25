@@ -6,6 +6,7 @@
         "@babel/plugin-proposal-export-namespace-from",
         "@babel/plugin-proposal-function-bind",
         "@babel/plugin-proposal-object-rest-spread",
+        "@babel/transform-runtime"
     ],
     "presets": [
         "@babel/preset-env",

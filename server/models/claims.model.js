@@ -21,12 +21,61 @@ export default {
       type: DataTypes.UUID,
       field: "business_unit_uuid",
     },
-    name: {
+    description: {
       type: DataTypes.STRING,
+    },
+    compensationApply: {
+      type: DataTypes.BOOLEAN,
+      field: "compensation_apply",
+    },
+    accountNumber: {
+      type: DataTypes.STRING,
+      field: "account_number",
+    },
+    beneficiaryName: {
+      type: DataTypes.STRING,
+      field: "beneficiary_name",
+    },
+    beneficiaryDocumentNumber: {
+      type: DataTypes.STRING,
+      field: "beneficiary_document_number",
+    },
+    beneficiaryDocumentType: {
+      type: DataTypes.INTEGER,
+      field: "beneficiary_document_type",
+    },
+    monetaryAmount: {
+      type: DataTypes.NUMBER,
+      field: "monetary_amount",
+    },
+    monetaryUnit: {
+      type: DataTypes.STRING,
+      field: "monetary_unit",
+    },
+    statusUpdatedAt: {
+      type: DataTypes.DATE,
+      field: "status_update_date",
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      field: "created_date",
+    },
+    coming: {
+      type: DataTypes.BOOLEAN,
+      field: "coming",
+    },
+    claimProceeds: {
+      type: DataTypes.STRING,
+      field: "claim_proceeds",
+    },
+    isFrom: {
+      type: DataTypes.BOOLEAN,
+      field: "is_from",
     },
   },
   optionalConfig: {
-    tableName: "tuten_claims",
+    tableName: "tuten_claim",
+    timestamps: false,
   },
   relationships: {
     belongsTo: [
