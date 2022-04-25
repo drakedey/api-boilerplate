@@ -2,7 +2,7 @@
 import { DataTypes } from "sequelize";
 
 export default {
-  name: "AccountTypes",
+  name: "Bank",
   attribute: {
     id: {
       type: DataTypes.BIGINT,

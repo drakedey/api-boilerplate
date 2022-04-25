@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable import/no-dynamic-require */
 import Sequelize from "sequelize";
 import fs from "fs";
 import path from "path";
@@ -42,12 +44,35 @@ const modelsDir = path.normalize(`${__dirname}/../server/models`);
 fs.readdirSync(modelsDir)
   .filter((file) => file.indexOf(".") !== 0 && file.indexOf(".map") === -1)
   // import model files and save model names
-  .forEach((file) => {
+  .map((file) => {
     logger.info(`Loading model file ${file}`);
     const modelSchema = require(path.join(modelsDir, file)).default;
-    const optionalConfig = modelSchema.optionalConfig ? modelSchema.optionalConfig : {};
-    const model = sequelize.define(modelSchema.name, modelSchema.attribute, optionalConfig);
+    const optionalConfig = modelSchema.optionalConfig
+      ? modelSchema.optionalConfig
+      : {};
+    const model = sequelize.define(
+      modelSchema.name,
+      modelSchema.attribute,
+      optionalConfig
+    );
     db[model.name] = model;
+    return file;
+  })
+  .forEach((file) => {
+    const modelSchema = require(path.join(modelsDir, file)).default;
+    const { relationships, name } = modelSchema;
+    if (!relationships || !relationships.belongsTo) return;
+    relationships.belongsTo.forEach(({ relationType, modelName, options }) => {
+      switch (relationType) {
+        case "hasMany":
+          console.log(`DOING HAS MANY FOR: ${name}, ${modelName}`);
+          db[modelName].hasMany(db[name], options);
+          db[name].belongsTo(db[modelName]);
+          break;
+        default:
+          break;
+      }
+    });
   });
 
 // assign the sequelize variables to the db object and returning the db.
