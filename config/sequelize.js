@@ -65,7 +65,6 @@ fs.readdirSync(modelsDir)
     relationships.belongsTo.forEach(({ relationType, modelName, options }) => {
       switch (relationType) {
         case "hasMany":
-          console.log(`DOING HAS MANY FOR: ${name}, ${modelName}`);
           db[modelName].hasMany(db[name], options);
           db[name].belongsTo(db[modelName]);
           break;

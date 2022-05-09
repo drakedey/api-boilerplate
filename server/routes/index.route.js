@@ -1,4 +1,7 @@
 import express from 'express';
+
+import verifyUserRequest from '../middlewares/auth.middleware';
+
 import userRoutes from './user.route';
 import authRoutes from './auth.route';
 import claimRoutes from './claims.route'
@@ -14,6 +17,6 @@ router.use('/users', userRoutes);
 // mount auth routes at /auth
 router.use('/auth', authRoutes);
 
-router.use('/claims', claimRoutes);
+router.use('/claims', verifyUserRequest, claimRoutes);
 
 export default router;

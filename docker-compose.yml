@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  amida-api:
+  claims-rest:
     build:
       context: .
     volumes:
@@ -24,21 +24,20 @@ services:
 
     # Overwrite any env var defined in .env file (if required)
     environment:
-      - PG_DB=api
+      - PG_DB=claims
       - PG_PORT=5432
-      - PG_HOST=amida-db
-      - PG_USER=api
-      - PG_PASSWD=boilerplate
-      - DEBUG=amida-api-boilerplate:*
+      - PG_HOST=claims-db
+      - PG_USER=tuten_user
+      - PG_PASSWD=holatuten123.
 
     # Link to containers in another service.
     # Links also express dependency between services in the same way as depends_on,
     # so they determine the order of service startup.
     links:
-      - amida-db
+      - claims-db
 
-  amida-db:
-    image: "postgres:14.1-alpine3.15"
+  claims-db:
+    image: "postgres:latest"
     ports:
       - "5432:5432"
     environment:

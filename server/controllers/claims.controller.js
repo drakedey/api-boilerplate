@@ -5,10 +5,9 @@ const { Claims } = db;
 const create = async (req, res, next) => {
   try {
     const { body } = req;
-    console.log(Claims)
     const claim = Claims.build(body);
-    const savedClaim = await claim.save({returning: false});
-    res.json(savedClaim);
+    const savedClaim = await claim.save({ returning: false });
+    res.json({ savedClaim });
   } catch (err) {
     next(err);
   }
